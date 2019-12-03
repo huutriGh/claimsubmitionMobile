@@ -56,7 +56,12 @@ const ListClaimScreen = ({navigation}) => {
             disabled={l.status !== 'PENDING'}
             style={styles.imageList}
             key={i + 3}
-            onPress={() => navigation.navigate('Image', {id: l.id})}>
+            onPress={() =>
+              navigation.navigate('Image', {
+                id: l.id,
+                imagePath: l.imagePath === null ? [] : l.imagePath,
+              })
+            }>
             <Icon
               key={i + 4}
               name="image"
@@ -99,7 +104,7 @@ ListClaimScreen.navigationOptions = ({navigation}) => {
       <TouchableOpacity
         style={styles.iconStyle}
         onPress={() => navigation.navigate('Create')}>
-        <Icon name="plus" size={30} color="#fff" />
+        <Icon name="plus-square" size={30} color="#fff" />
       </TouchableOpacity>
     ),
     headerTintColor: '#fff',

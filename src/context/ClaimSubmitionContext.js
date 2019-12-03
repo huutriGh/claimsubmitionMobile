@@ -52,6 +52,7 @@ const INITIAL_CLAIM_STATE = {
   dateUpdate: null,
   dateDelete: null,
   status: 'PENDING',
+  imagePath: null,
 };
 const paymentMethods = [
   {id: '1P', title: 'Nhận tiền mặt tại TTDVKH', checked: false},

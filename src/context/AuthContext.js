@@ -113,10 +113,12 @@ const signin = dispatch => async ({policyNumber, idNumber}) => {
       }
     }
   } catch (err) {
-    console.log(err);
     dispatch({
       type: ADD_ERROR,
-      payload: {error: 'Something went wrong with sign in', isLoading: false},
+      payload: {
+        error: 'Đăng nhập thất bại. Vui lòng thử lại',
+        isLoading: false,
+      },
     });
   }
 };

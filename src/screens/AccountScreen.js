@@ -14,7 +14,7 @@ const AccountScreen = () => {
     <SafeAreaView forceInset={{top: 'always'}}>
       <Card style={styles.container}>
         <Image
-          source={require('../assets/images/logo.png')}
+          source={require('../assets/images/Logo_horizontal-Gold.png')}
           style={styles.imageStyle}
         />
       </Card>
@@ -43,7 +43,6 @@ AccountScreen.navigationOptions = {
 };
 const styles = StyleSheet.create({
   container: {
-    margin: 30,
     alignSelf: 'center',
   },
   buttonStyle: {
@@ -57,9 +56,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   imageStyle: {
-    marginTop: 40,
-    width: 200,
-    height: 50,
+    width: '100%',
+    height: 100,
     alignSelf: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

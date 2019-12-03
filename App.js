@@ -22,6 +22,7 @@ import {StyleSheet} from 'react-native';
 import ShowClaimScreen from './src/screens/ShowClaimScreen';
 import EditClaimScreen from './src/screens/EditClaimScreen';
 import TakeImageScreen from './src/screens/TakeImageScreen';
+import StartScreen from './src/screens/StartScreen';
 
 // const createClaimFlow = createStackNavigator({
 //   CreateClaim: CreateClaimScreen,
@@ -79,6 +80,7 @@ ListClaim.navigationOptions = {
   ),
 };
 const switchNavigator = createSwitchNavigator({
+  Start: StartScreen,
   loginFlow: createStackNavigator({
     Signin: SigninScreen,
   }),

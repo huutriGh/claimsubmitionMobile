@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Image, Picker, View} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  Picker,
+  View,
+  Linking,
+  TouchableOpacity,
+} from 'react-native';
 import {Input, Text, Button} from 'react-native-elements';
 import useForm from 'react-hook-form';
 import * as yup from 'yup';
@@ -42,7 +49,9 @@ const AuthForm = ({
   });
 
   const submit = data => {
-    onSubmit({policyNumber: data.po, idNumber: data.id});
+    if (isLoading === false) {
+      onSubmit({policyNumber: data.po, idNumber: data.id});
+    }
   };
   const signout = () => {
     reset({po: '', id: ''});
@@ -134,57 +143,64 @@ const AuthForm = ({
   }, [token]);
   return (
     <SafeAreaView forceInset={{top: 'always'}}>
-      <Card>
-        <CardSection>
-          <Image
-            source={require('../assets/images/logo.png')}
-            style={styles.imageStyle}
+      <Spacer>
+        <Image
+          source={require('../assets/images/Logo_horizontal-Gold.png')}
+          style={styles.imageStyle}
+        />
+      </Spacer>
+      <Spacer>
+        <Text h3 style={styles.titleStyle}>
+          {headerText}
+        </Text>
+      </Spacer>
+      <View style={styles.containerStyle}>
+        <Spacer>
+          <Input
+            ref={register({name: 'po'})}
+            label="Số hợp đồng"
+            value={policyNumber}
+            //onChangeText={setPolicyNumber}
+            onChangeText={text => {
+              setValue('po', text, true);
+              setPolicyNumber(getValues().po);
+            }}
+            autoCapitalize="none"
+            autoCorrect={false}
+            disabled={token !== null || isLoading === true}
+            errorMessage={errors.po && 'Số hợp đồng không hợp lệ'}
           />
-        </CardSection>
-        <CardSection>
-          <Text h3>{headerText}</Text>
-        </CardSection>
+        </Spacer>
+        <Spacer>
+          <Input
+            ref={register({name: 'id'})}
+            label="Số CMND"
+            value={idNumber}
+            autoCapitalize="none"
+            autoCorrect={false}
+            //onChangeText={setIdNumber}
+            onChangeText={text => {
+              setValue('id', text, true);
+              setIdNumber(getValues().id);
+            }}
+            disabled={token !== null || isLoading === true}
+            errorMessage={errors.id && 'Số CMND không hợp lệ'}
+          />
+          {errorMessage ? (
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
+          ) : null}
+        </Spacer>
+        {token ? renderPicker(listLifeIdNum) : null}
+        {renderButton()}
+        <TouchableOpacity
+          onPress={() => Linking.openURL('https://www.phuhunglife.com/')}>
+          <Spacer>
+            <Text style={styles.link}>Bạn chưa có hợp đông bảo hiểm ?</Text>
+          </Spacer>
+        </TouchableOpacity>
+      </View>
 
-        <CardSection style={styles.cardSectionStyle}>
-          <Spacer>
-            <Input
-              ref={register({name: 'po'})}
-              label="Số hợp đồng"
-              value={policyNumber}
-              //onChangeText={setPolicyNumber}
-              onChangeText={text => {
-                setValue('po', text, true);
-                setPolicyNumber(getValues().po);
-              }}
-              autoCapitalize="none"
-              autoCorrect={false}
-              disabled={token !== null || isLoading === true}
-              errorMessage={errors.po && 'Số hợp đồng không hợp lệ'}
-            />
-          </Spacer>
-          <Spacer>
-            <Input
-              ref={register({name: 'id'})}
-              label="Số CMND"
-              value={idNumber}
-              autoCapitalize="none"
-              autoCorrect={false}
-              //onChangeText={setIdNumber}
-              onChangeText={text => {
-                setValue('id', text, true);
-                setIdNumber(getValues().id);
-              }}
-              disabled={token !== null || isLoading === true}
-              errorMessage={errors.id && 'Số CMND không hợp lệ'}
-            />
-            {errorMessage ? (
-              <Text style={styles.errorMessage}>{errorMessage}</Text>
-            ) : null}
-          </Spacer>
-          {token ? renderPicker(listLifeIdNum) : null}
-          {renderButton()}
-        </CardSection>
-      </Card>
+      {/* <Navlink text="Bạn chưa có hợp đông bảo hiểm ?" routeName="Signup" /> */}
     </SafeAreaView>
   );
 };
@@ -196,13 +212,18 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginTop: 15,
   },
-  imageStyle: {
-    marginTop: 15,
-    marginBottom: 15,
-    width: 200,
-    height: 50,
+  containerStyle: {
     justifyContent: 'center',
-    flexDirection: 'row',
+  },
+  imageStyle: {
+    width: '100%',
+    height: 100,
+
+    alignSelf: 'center',
+  },
+  titleStyle: {
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   cardSectionStyle: {
     flexDirection: 'column',
@@ -228,6 +249,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     alignContent: 'space-between',
+  },
+  link: {
+    color: 'blue',
   },
 });
 

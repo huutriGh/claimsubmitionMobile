@@ -97,9 +97,13 @@ const selectImage = dispatch => async ({type, photos = []}) => {
     payload: {type, photos},
   });
 };
-const UploadImage = dispatch => async (claimId, images = []) => {
+const UploadImage = dispatch => async (
+  claimId,
+  imagePath = [],
+  images = [],
+) => {
   await dispatch({type: UPLOAD_IMAGE});
-  let response = [];
+  let response = imagePath === null ? [] : imagePath;
   if (images.length > 0) {
     for (const obj of images) {
       let formData = new FormData();
@@ -121,13 +125,39 @@ const UploadImage = dispatch => async (claimId, images = []) => {
         .then(res => {
           console.log('res:', res.data);
           response = [...response, ...res.data];
+          const keys = ['path', 'type'];
+          response = [...response, ...res.data];
+          console.log('response after merge: ', response);
+          response = response.filter(
+            (s => o =>
+              (k => !s.has(k) && s.add(k))(keys.map(k => o[k]).join('|')))(
+              new Set(),
+            ),
+          );
+          console.log('response after unique: ', response);
+          // console.log('res:', res.data);
+          // console.log('response in loop: ', response);
+          // let filterPathImage = response.filter(p => p.type === obj.type);
+          // filterPathImage = [...filterPathImage, ...res.data];
+          // filterPathImage = getUnique(filterPathImage, 'path');
+          // response = response.filter(p => p.type !== obj.type);
+          // response = [...response, ...filterPathImage];
+          // console.log('response after merge: ', response);
         })
         .catch(error => {
           console.log('err:', error);
         });
     }
     console.log('response: ', response);
+
     if (response.length > 0) {
+      await claimAPI
+        .put(`/ImagePath/${claimId}`, {
+          type: '0',
+          path: JSON.stringify(response),
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
       Alert.alert('Thông báo', 'Upload thành công');
       dispatch({
         type: UPLOAD_IMAGE_SUCCESS,

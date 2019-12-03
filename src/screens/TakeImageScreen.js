@@ -79,7 +79,13 @@ const TakeImageScreen = ({navigation}) => {
     }
     if (state.images.length > 0) {
       if (state.images[0].type !== 0) {
-        UploadImage(navigation.getParam('id'), state.images);
+        const imagePath = navigation.getParam('imagePath');
+        console.log('imagePath', imagePath);
+        UploadImage(
+          navigation.getParam('id'),
+          JSON.parse(imagePath),
+          state.images,
+        );
       } else {
         Alert.alert(
           'Thông báo',

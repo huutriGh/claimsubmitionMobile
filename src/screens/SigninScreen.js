@@ -29,13 +29,6 @@ const SigninScreen = () => {
         poNumber={state.policyNumber}
         idCard={state.idNumber}
       />
-      <TouchableOpacity
-        onPress={() => Linking.openURL('https://www.phuhunglife.com/')}>
-        <Spacer>
-          <Text style={styles.link}>Bạn chưa có hợp đông bảo hiểm ?</Text>
-        </Spacer>
-      </TouchableOpacity>
-      {/* <Navlink text="Bạn chưa có hợp đông bảo hiểm ?" routeName="Signup" /> */}
     </>
   );
 };

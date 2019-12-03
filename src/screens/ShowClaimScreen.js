@@ -3,11 +3,33 @@ import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Context} from '../context/ClaimSubmitionContext';
+import ImageList from './../components/ImageList';
 const ShowClaimScreen = ({navigation}) => {
   const {state} = useContext(Context);
   const claim = state.claimSubmitionHis.find(c => {
     return c.id === navigation.getParam('id');
   });
+  const filterImageByType = (images = [], type) => {
+    if (images === null) {
+      return [];
+    }
+    const filter = images.filter(p => p.type === type);
+    return filter;
+  };
+  const renderImage = (images = []) => {
+    return (
+      <ScrollView>
+        <ImageList
+          images={filterImageByType(images, '13')}
+          title="Chứng minh nhân thân của người thụ hưởng"
+        />
+        <ImageList
+          images={filterImageByType(images, '4')}
+          title="Giấy ra viện"
+        />
+      </ScrollView>
+    );
+  };
 
   return (
     <View>
@@ -32,6 +54,9 @@ const ShowClaimScreen = ({navigation}) => {
             editable={false}
           />
         </Card>
+        <Card title="Hình ảnh chứng từ">
+          {renderImage(JSON.parse(claim.imagePath))}
+        </Card>
       </ScrollView>
     </View>
   );
@@ -48,7 +73,7 @@ ShowClaimScreen.navigationOptions = ({navigation}) => {
           navigation.navigate('Edit', {id: navigation.getParam('id')})
         }>
         <Icon
-          name="pencil"
+          name="edit"
           size={30}
           color={
             navigation.getParam('status') === 'PENDING' ? '#fff' : '#808080'
