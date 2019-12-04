@@ -6,7 +6,6 @@ const ImageList = ({title, images = []}) => {
   if (!images.length) {
     return null;
   }
-  console.log('images', images);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -16,7 +15,6 @@ const ImageList = ({title, images = []}) => {
         keyExtractor={photo => photo.path}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => {
-          console.log(item.path);
           return (
             <View style={styles.view}>
               <Image

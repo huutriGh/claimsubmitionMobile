@@ -4,9 +4,10 @@ const StartScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Signin');
-    }, 5000);
+    }, 3000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <View style={styles.containerStyle}>
       <Image

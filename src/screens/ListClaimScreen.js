@@ -14,13 +14,15 @@ const ListClaimScreen = ({navigation}) => {
   const imgctx = useContext(ImageContext);
   const {policyNumber, idNumber} = authctx.state;
 
-  const {state, claimSubmitionFetch} = useContext(Context);
+  const {state, claimSubmitionFetch, getPaymentMethods} = useContext(Context);
 
   useEffect(() => {
     imgctx.cleanImage();
     claimSubmitionFetch(policyNumber, idNumber);
+    getPaymentMethods();
     const listener = navigation.addListener('didFocus', () => {
       claimSubmitionFetch(policyNumber, idNumber);
+      getPaymentMethods();
       imgctx.cleanImage();
     });
 

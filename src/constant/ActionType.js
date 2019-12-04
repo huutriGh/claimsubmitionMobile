@@ -8,6 +8,7 @@ export const CLAIMSUBMIT_SAVE_SUCCESS = 'CLAIMSUBMIT_DELETE_SUCCESS';
 export const COMPONENT_CHECKED_CHANGE = 'COMPONENT_CHECKED_CHANGE';
 export const PAYMENT_CHECKED_CHANGE = 'PAYMENT_CHECKED_CHANGE';
 export const CLAIMSUBMIT_CREATE_SUCCESS = 'CLAIMSUBMIT_CREATE_SUCCESS';
+export const PAYMENT_METHOD_FETCH = 'PAYMENT_METHOD_FETCH';
 
 //===============AuthContext=======================================================================================
 

@@ -14,7 +14,6 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
   const {
     state,
     claimSubmitionUpdate,
-
     componentCheckedChange,
     paymentMethodCheckedChange,
   } = useContext(Context);
@@ -57,6 +56,7 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
 
   const submit = data => {
     console.log('data:', data);
+    onSubmit(state, isEdit);
   };
   const [ortherInsurance, setortherInsurance] = useState(false);
   const [acceptPolicy, setAcceptPolicy] = useState(false);
@@ -141,8 +141,11 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
       </>
     ) : null;
   };
-  const renderPaymentMethod = () => {
-    let p = state.paymentMethods.filter(pay => pay.checked);
+  const renderPaymentMethod = (handleChange, values, touched, errors) => {
+    let p =
+      state.paymentMethods.length > 0
+        ? state.paymentMethods.filter(pay => pay.checked)
+        : [];
     if (p.length === 0) {
       return null;
     } else {
@@ -150,8 +153,8 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
     }
 
     if (
-      (p.id === '1P' && p.checked === true) ||
-      (p.id === '4P' && p.checked === true)
+      (p.id === 2 && p.checked === true) ||
+      (p.id === 3 && p.checked === true)
     ) {
       return (
         <Card title="Thông tin nhận thanh toán">
@@ -170,16 +173,20 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
             }
           />
           <DatePicker
+            name="accountIdCardDate"
             label="Ngày cấp"
             placeholder="dd-MM-yyyy"
-            name="accountIdCardDate"
             value={state.claimSubmition.accountIdCardDate}
-            onChangeText={datePickerChange}
-            //errorMessage={errors.eventDate && 'Ngày cấp CMND không hợp lệ.'}
+            onChangeText={value => {
+              handleChange('accountIdCardDate');
+              claimSubmitionUpdate({prop: 'accountIdCardDate', value});
+            }}
+            onBlur={handleChange('accountIdCardDate')}
+            errorMessage={touched.accountIdCardDate && errors.accountIdCardDate}
           />
         </Card>
       );
-    } else if (p.id === '3P' && p.checked === true) {
+    } else if (p.id === 1 && p.checked === true) {
       return (
         <Card title="Thông tin nhận thanh toán">
           <Input
@@ -365,18 +372,28 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
             </Card>
             <Card title="Thông tin y khoa">
               <DatePicker
+                name="dateIn"
                 label="Ngày vào viện"
                 placeholder="dd-MM-yyyy"
-                name="dateIn"
                 value={state.claimSubmition.dateIn}
-                onChangeText={datePickerChange}
+                onChangeText={value => {
+                  handleChange('dateIn');
+                  claimSubmitionUpdate({prop: 'dateIn', value});
+                }}
+                onBlur={handleChange('dateIn')}
+                errorMessage={touched.dateIn && errors.dateIn}
               />
               <DatePicker
+                name="dateOut"
                 label="Ngày ra viện"
                 placeholder="dd-MM-yyyy"
-                name="dateOut"
                 value={state.claimSubmition.dateOut}
-                onChangeText={datePickerChange}
+                onChangeText={value => {
+                  handleChange('dateOut');
+                  claimSubmitionUpdate({prop: 'dateOut', value});
+                }}
+                onBlur={handleChange('dateIn')}
+                errorMessage={touched.dateOut && errors.dateOut}
               />
               <Input
                 label="chẩn đoán khi ra viện"
@@ -418,18 +435,20 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
               />
             </Card>
             <Card title="Chọn phương thức thanh toán">
-              {state.paymentMethods.map(p => (
-                <CheckBox
-                  title={p.title}
-                  key={p.id}
-                  checked={p.checked}
-                  checkedIcon="dot-circle-o"
-                  uncheckedIcon="circle-o"
-                  onPress={() => togglePaymentCheckbox(p.id)}
-                />
-              ))}
+              {state.paymentMethods.length > 0
+                ? state.paymentMethods.map(p => (
+                    <CheckBox
+                      title={p.title}
+                      key={p.id}
+                      checked={p.checked}
+                      checkedIcon="dot-circle-o"
+                      uncheckedIcon="circle-o"
+                      onPress={() => togglePaymentCheckbox(p.id)}
+                    />
+                  ))
+                : null}
             </Card>
-            {renderPaymentMethod()}
+            {renderPaymentMethod(handleChange, errors, touched, values)}
             <Card title="Được bảo hiểm bởi công ty khác ?">
               <View style={styles.viewStyle}>
                 <CheckBox
@@ -471,7 +490,7 @@ const CreateClaimForm = ({navigation, isEdit, initialvalue, onSubmit}) => {
                 //   console.log('formstate:', formState);
                 //   handleSubmit(submit);
                 // }}
-                onPress={handleSubmit}
+                onPress={() => handleSubmit(submit)}
                 loading={isSubmitting}
               />
             </Card>

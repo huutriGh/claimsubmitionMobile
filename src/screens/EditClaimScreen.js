@@ -12,7 +12,7 @@ const EditClaimScreen = ({navigation}) => {
     const claim = state.claimSubmitionHis.find(c => {
       return c.id === navigation.getParam('id');
     });
-    claimSubmitionRepareEdit(claim);
+    claimSubmitionRepareEdit(claim, state.paymentMethods);
   };
   useEffect(() => {
     getFirstData();

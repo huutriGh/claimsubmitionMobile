@@ -9,6 +9,7 @@ import {
   CLAIMSUBMIT_UPDATE,
   COMPONENT_CHECKED_CHANGE,
   PAYMENT_CHECKED_CHANGE,
+  PAYMENT_METHOD_FETCH,
 } from '../constant/ActionType';
 import createDataContext from './createDataContext';
 
@@ -54,11 +55,11 @@ const INITIAL_CLAIM_STATE = {
   status: 'PENDING',
   imagePath: null,
 };
-const paymentMethods = [
-  {id: '1P', title: 'Nhận tiền mặt tại TTDVKH', checked: false},
-  {id: '2P', title: 'Đóng phí bảo hiểm', checked: false},
-  {id: '3P', title: 'Chuyển vào tài khoản cá nhân', checked: false},
-  {id: '4P', title: 'Nhận tiền mặt tại Ngân hàng', checked: false},
+const INITIAL_PAYMENT_METHOD = [
+  {id: '1', title: 'Chuyển vào tài khoản cá nhân', checked: false},
+  {id: '2', title: 'Nhận tiền mặt tại TTDVKH', checked: false},
+  {id: '3', title: 'Nhận tiền mặt tại Ngân hàng', checked: false},
+  {id: '4', title: 'Đóng phí bảo hiểm', checked: false},
 ];
 
 const claimReducer = (state, action) => {
@@ -67,6 +68,11 @@ const claimReducer = (state, action) => {
       return {
         ...state,
         claimSubmitionHis: action.payload,
+      };
+    case PAYMENT_METHOD_FETCH:
+      return {
+        ...state,
+        paymentMethods: action.payload,
       };
     case CLAIMSUBMIT_UPDATE:
       const newClaimSubmition = {
@@ -88,8 +94,10 @@ const claimReducer = (state, action) => {
         ...state,
         claimSubmition: INITIAL_CLAIM_STATE,
         components: [],
-        paymentMethods,
         claimSubmitionHis: [],
+        paymentMethods: state.paymentMethods.map(p => {
+          return {...p, checked: false};
+        }),
       };
     case CLAIMSUBMIT_REPARE_EDIT:
       return {
@@ -103,6 +111,9 @@ const claimReducer = (state, action) => {
         ...state,
         claimSubmitionHis: state.claimSubmitionHis.map(s => {
           return s.id === action.payload.id ? action.payload : s;
+        }),
+        paymentMethods: state.paymentMethods.map(p => {
+          return {...p, checked: false};
         }),
       };
     case COMPONENT_CHECKED_CHANGE:
@@ -122,7 +133,6 @@ const claimReducer = (state, action) => {
 };
 const claimSubmitionCreate = dispatch => async () => {
   const policys = await AsyncStorage.getItem('policyDetail');
-
   if (policys) {
     let policy = [];
     policy = JSON.parse(policys);
@@ -144,7 +154,10 @@ const claimSubmitionCreate = dispatch => async () => {
     });
   }
 };
-const claimSubmitionRepareEdit = dispatch => async (claimSubmition = {}) => {
+const claimSubmitionRepareEdit = dispatch => async (
+  claimSubmition = {},
+  paymentMethods = INITIAL_PAYMENT_METHOD,
+) => {
   const policys = await AsyncStorage.getItem('policyDetail');
   if (policys) {
     let policy = [];
@@ -165,9 +178,8 @@ const claimSubmitionRepareEdit = dispatch => async (claimSubmition = {}) => {
         comp.checked = true;
       }
     });
-
     const payments = paymentMethods.map(pay => {
-      if (pay.id === claimSubmition.paymentMothod) {
+      if (pay.id.toString() === claimSubmition.paymentMothod) {
         pay.checked = true;
         return pay;
       } else {
@@ -175,7 +187,6 @@ const claimSubmitionRepareEdit = dispatch => async (claimSubmition = {}) => {
         return pay;
       }
     });
-
     dispatch({
       type: CLAIMSUBMIT_REPARE_EDIT,
       payload: {claimSubmition, components, payments},
@@ -245,6 +256,10 @@ const claimSubmitionInsert = dispatch => async (
         type: CLAIMSUBMIT_SAVE_SUCCESS,
         payload: response.data,
       });
+      // } else {
+      //   dispatch({
+      //     type: CLAIMSUBMIT_CREATE_SUCCESS,
+      //   });
     }
     if (callback) {
       callback();
@@ -264,7 +279,12 @@ const claimSubmitionFetch = dispatch => async (poNumber, idCard) => {
     });
   }
 };
-
+const getPaymentMethods = dispatch => async () => {
+  const response = await claimAPI.get('/paymentMethod');
+  if (response) {
+    dispatch({type: PAYMENT_METHOD_FETCH, payload: response.data});
+  }
+};
 export const {Provider, Context} = createDataContext(
   claimReducer,
   {
@@ -275,11 +295,12 @@ export const {Provider, Context} = createDataContext(
     claimSubmitionFetch,
     claimSubmitionInsert,
     claimSubmitionRepareEdit,
+    getPaymentMethods,
   },
   {
     claimSubmition: INITIAL_CLAIM_STATE,
     components: [],
-    paymentMethods,
+    paymentMethods: INITIAL_PAYMENT_METHOD,
     claimSubmitionHis: [],
   },
 );

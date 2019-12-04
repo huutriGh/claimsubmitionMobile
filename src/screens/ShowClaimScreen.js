@@ -17,15 +17,76 @@ const ShowClaimScreen = ({navigation}) => {
     return filter;
   };
   const renderImage = (images = []) => {
+    console.log('images:', images);
     return (
       <ScrollView>
         <ImageList
-          images={filterImageByType(images, '13')}
-          title="Chứng minh nhân thân của người thụ hưởng"
+          images={filterImageByType(images, '1')}
+          title="Đơn yêu cầu giải quyết quyền lợi bảo hiểm"
+        />
+        <ImageList
+          images={filterImageByType(images, '2')}
+          title="Giấy chứng tử"
+        />
+        <ImageList
+          images={filterImageByType(images, '3')}
+          title="Giấy báo tử"
         />
         <ImageList
           images={filterImageByType(images, '4')}
           title="Giấy ra viện"
+        />
+        <ImageList
+          images={filterImageByType(images, '5')}
+          title="Tóm tắt bệnh án/Kết quả xét nghiệm/X-Quang"
+        />
+        <ImageList
+          images={filterImageByType(images, '6')}
+          title="Bảng kê chi tiết viện phí"
+        />
+        <ImageList
+          images={filterImageByType(images, '7')}
+          title="Hóa đơn viện phí"
+        />
+        <ImageList
+          images={filterImageByType(images, '8')}
+          title="Bản kết luận về tai nạn, Biên bản/sơ đồ hiện trường, Kết luận pháp y"
+        />
+        <ImageList
+          images={filterImageByType(images, '9')}
+          title="Tường trình về việc tử vong"
+        />
+        <ImageList
+          images={filterImageByType(images, '10')}
+          title="Quyết định tuyên bố tử vong của tòa án"
+        />
+        <ImageList
+          images={filterImageByType(images, '11')}
+          title="Bộ hợp đồng"
+        />
+        <ImageList
+          images={filterImageByType(images, '12')}
+          title="Hộ khẩu đã xóa tên"
+        />
+        <ImageList
+          images={filterImageByType(images, '13')}
+          title="Giấy tờ chưng minh nhân thân của người thụ hưởng"
+        />
+        <ImageList
+          images={filterImageByType(images, '14')}
+          title="Giấy khai sinh người được bảo hiểm/Người thụ hưởng(<18t)"
+        />
+        <ImageList
+          images={filterImageByType(images, '15')}
+          title="Kết quả giám định y khoa"
+        />
+        <ImageList
+          images={filterImageByType(images, '16')}
+          title="Biên bản phân chi di sản(Không có người thụ hưởng)"
+        />
+        <ImageList
+          images={filterImageByType(images, '17')}
+          title="Quyết định giám hộ hợp pháp(Người được bảo hiểm mất năng lực hành vi dân sự"
         />
       </ScrollView>
     );

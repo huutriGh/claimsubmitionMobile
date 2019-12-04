@@ -83,7 +83,7 @@ const TakeImageScreen = ({navigation}) => {
         console.log('imagePath', imagePath);
         UploadImage(
           navigation.getParam('id'),
-          JSON.parse(imagePath),
+          imagePath.length > 0 ? JSON.parse(imagePath) : [],
           state.images,
         );
       } else {
@@ -135,27 +135,109 @@ const TakeImageScreen = ({navigation}) => {
   };
 
   const renderSelectPhotoControl = (localPhotos = []) => {
-    const photo13 =
-      localPhotos.filter(p => p.type === 13).length > 0
-        ? localPhotos.filter(p => p.type === 13)[0].photos
+    const photo1 =
+      localPhotos.filter(p => p.type === 1).length > 0
+        ? localPhotos.filter(p => p.type === 1)[0].photos
+        : [];
+    const photo2 =
+      localPhotos.filter(p => p.type === 2).length > 0
+        ? localPhotos.filter(p => p.type === 2)[0].photos
+        : [];
+    const photo3 =
+      localPhotos.filter(p => p.type === 3).length > 0
+        ? localPhotos.filter(p => p.type === 3)[0].photos
         : [];
     const photo4 =
       localPhotos.filter(p => p.type === 4).length > 0
         ? localPhotos.filter(p => p.type === 4)[0].photos
         : [];
+    const photo5 =
+      localPhotos.filter(p => p.type === 5).length > 0
+        ? localPhotos.filter(p => p.type === 5)[0].photos
+        : [];
+    const photo6 =
+      localPhotos.filter(p => p.type === 6).length > 0
+        ? localPhotos.filter(p => p.type === 6)[0].photos
+        : [];
+    const photo7 =
+      localPhotos.filter(p => p.type === 7).length > 0
+        ? localPhotos.filter(p => p.type === 7)[0].photos
+        : [];
+    const photo8 =
+      localPhotos.filter(p => p.type === 8).length > 0
+        ? localPhotos.filter(p => p.type === 8)[0].photos
+        : [];
+    const photo9 =
+      localPhotos.filter(p => p.type === 9).length > 0
+        ? localPhotos.filter(p => p.type === 9)[0].photos
+        : [];
+    const photo10 =
+      localPhotos.filter(p => p.type === 10).length > 0
+        ? localPhotos.filter(p => p.type === 10)[0].photos
+        : [];
+    const photo11 =
+      localPhotos.filter(p => p.type === 11).length > 0
+        ? localPhotos.filter(p => p.type === 11)[0].photos
+        : [];
+    const photo12 =
+      localPhotos.filter(p => p.type === 12).length > 0
+        ? localPhotos.filter(p => p.type === 12)[0].photos
+        : [];
+    const photo13 =
+      localPhotos.filter(p => p.type === 13).length > 0
+        ? localPhotos.filter(p => p.type === 13)[0].photos
+        : [];
+    const photo14 =
+      localPhotos.filter(p => p.type === 14).length > 0
+        ? localPhotos.filter(p => p.type === 14)[0].photos
+        : [];
+    const photo15 =
+      localPhotos.filter(p => p.type === 15).length > 0
+        ? localPhotos.filter(p => p.type === 15)[0].photos
+        : [];
+    const photo16 =
+      localPhotos.filter(p => p.type === 16).length > 0
+        ? localPhotos.filter(p => p.type === 16)[0].photos
+        : [];
+    const photo17 =
+      localPhotos.filter(p => p.type === 17).length > 0
+        ? localPhotos.filter(p => p.type === 17)[0].photos
+        : [];
     return (
       <>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>
-            Chứng minh nhân thân của người thự hưởng
+            Đơn yêu cầu giải quyết quyền lợi bảo hiểm
           </Text>
           <ScrollView style={styles.photoList} horizontal={true}>
-            <TouchableOpacity onPress={() => onPressAddPhotoBtn(13)}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(1)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
               </View>
             </TouchableOpacity>
-            {renderListPhotos(photo13, 13)}
+            {renderListPhotos(photo1, 1)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Giấy chứng tử</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(2)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo2, 2)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Giấy báo tử</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(3)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo3, 3)}
           </ScrollView>
         </View>
         <View style={styles.sectionContainer}>
@@ -167,6 +249,164 @@ const TakeImageScreen = ({navigation}) => {
               </View>
             </TouchableOpacity>
             {renderListPhotos(photo4, 4)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>
+            Tóm tắt bệnh án/Kết quả xét nghiệm/X-Quang
+          </Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(5)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo5, 5)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Giấy ra viện</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(6)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo6, 6)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Hóa đơn viện phí</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(7)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo7, 7)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>
+            Bản kết luận về tai nạn, Biên bản/sơ đồ hiện trường, Kết luận pháp y
+          </Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(8)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo8, 8)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Tường trình về việc tử vong</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(9)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo9, 9)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>
+            Quyết định tuyên bố tử vong của tòa án
+          </Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(10)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo10, 10)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Bộ hợp đồng</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(11)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo11, 11)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Hộ khẩu đã xóa tên</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(12)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo12, 12)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>
+            Giấy tờ chứng minh nhân thân của người thụ hưởng
+          </Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(13)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo13, 13)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>
+            {'Giấy khai sinh người được bảo hiểm/Người thụ hưởng(<18t)'}
+          </Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(14)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo14, 14)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Kết quả giám định y khoa</Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(15)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo15, 15)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>
+            Biên bản phân chi di sản(Không có người thụ hưởng)
+          </Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(16)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo16, 16)}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>
+            Quyết định giám hộ hợp pháp(Người được bảo hiểm mất năng lực hành vi
+            dân sự
+          </Text>
+          <ScrollView style={styles.photoList} horizontal={true}>
+            <TouchableOpacity onPress={() => onPressAddPhotoBtn(17)}>
+              <View style={[styles.addButton, styles.photo]}>
+                <Text style={styles.addButtonText}>+</Text>
+              </View>
+            </TouchableOpacity>
+            {renderListPhotos(photo17, 17)}
           </ScrollView>
         </View>
       </>

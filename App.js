@@ -18,11 +18,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AttentionSCreen from './src/screens/AttentionSCreen';
 import FileRequestScreen from './src/screens/FileRequestScreen';
 import FileDetail from './src/components/FileDetail';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Animated, Easing} from 'react-native';
 import ShowClaimScreen from './src/screens/ShowClaimScreen';
 import EditClaimScreen from './src/screens/EditClaimScreen';
 import TakeImageScreen from './src/screens/TakeImageScreen';
 import StartScreen from './src/screens/StartScreen';
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
+import {Transition} from 'react-native-reanimated';
 
 // const createClaimFlow = createStackNavigator({
 //   CreateClaim: CreateClaimScreen,
@@ -79,18 +81,73 @@ ListClaim.navigationOptions = {
     <Icon name="list-alt" type="entypo" size={25} color={tintColor} />
   ),
 };
-const switchNavigator = createSwitchNavigator({
-  Start: StartScreen,
-  loginFlow: createStackNavigator({
-    Signin: SigninScreen,
-  }),
-  mainFlow: createBottomTabNavigator({
-    attentionFlow,
-    ListClaim,
-    //createClaimFlow,
-    Account: AccountScreen,
-  }),
-});
+const switchNavigator = createAnimatedSwitchNavigator(
+  {
+    Start: StartScreen,
+    loginFlow: createStackNavigator(
+      {
+        Signin: SigninScreen,
+      },
+      {
+        headerMode: 'none',
+        mode: 'modal',
+        defaultNavigationOptions: {
+          gesturesEnabled: false,
+        },
+        transitionConfig: () => ({
+          transitionSpec: {
+            duration: 1000,
+            easing: Easing.out(Easing.poly(4)),
+            timing: Animated.timing,
+          },
+          screenInterpolator: sceneProps => {
+            const {layout, position, scene} = sceneProps;
+            const {index} = scene;
+
+            const height = layout.initHeight;
+            const translateY = position.interpolate({
+              inputRange: [index - 1, index, index + 1],
+              outputRange: [height, 0, 0],
+            });
+
+            const opacity = position.interpolate({
+              inputRange: [index - 1, index - 0.99, index],
+              outputRange: [0, 1, 1],
+            });
+
+            return {
+              opacity,
+              transform: [
+                {
+                  translateY,
+                },
+              ],
+            };
+          },
+        }),
+      },
+    ),
+    mainFlow: createBottomTabNavigator({
+      attentionFlow,
+      ListClaim,
+      //createClaimFlow,
+      Account: AccountScreen,
+    }),
+  },
+  {
+    // The previous screen will slide to the bottom while the next screen will fade in
+    transition: (
+      <Transition.Together>
+        <Transition.Out
+          type="slide-left"
+          durationMs={500}
+          interpolation="easeIn"
+        />
+        <Transition.In type="fade" durationMs={2000} />
+      </Transition.Together>
+    ),
+  },
+);
 
 const App = createAppContainer(switchNavigator);
 
