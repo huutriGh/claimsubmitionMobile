@@ -5,11 +5,12 @@ const StartScreen = ({navigation}) => {
     setTimeout(() => {
       navigation.navigate('Signin');
     }, 5000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <View style={styles.containerStyle}>
       <Image
-        source={require('../assets/images/Logo_horizontal-Gold.png')}
+        source={require('../assets/images/Logo_vertical-Gold.png')}
         style={styles.imageStyle}
       />
     </View>
@@ -25,8 +26,9 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   imageStyle: {
-    width: '100%',
-    height: 100,
+    width: '70%',
+    height: '70%',
+    resizeMode: 'contain',
   },
 });
 StartScreen.navigationOptions = () => {

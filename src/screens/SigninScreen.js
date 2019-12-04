@@ -1,10 +1,7 @@
 import React, {useContext} from 'react';
 import {NavigationEvents} from 'react-navigation';
-import {Linking, StyleSheet, TouchableOpacity, Text} from 'react-native';
-import Navlink from '../components/Navlink';
 import {Context} from '../context/AuthContext';
 import AuthForm from './../components/AuthForm';
-import Spacer from '../components/Spacer';
 const SigninScreen = () => {
   const {
     state,
@@ -32,11 +29,11 @@ const SigninScreen = () => {
     </>
   );
 };
-const styles = StyleSheet.create({
-  link: {
-    color: 'blue',
-  },
-});
+// const styles = StyleSheet.create({
+//   link: {
+//     color: 'blue',
+//   },
+// });
 SigninScreen.navigationOptions = () => {
   return {
     header: null,

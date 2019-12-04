@@ -1,11 +1,11 @@
 // import {FontAwesome} from '@expo/vector-icons';
 import React, {useContext} from 'react';
-import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
-import {Icon as EIcon, Card, ListItem} from 'react-native-elements';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Card, Icon as EIcon, ListItem} from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 import Icon from 'react-native-vector-icons/Feather';
-Icon;
 import {Context as AuthContext} from '../context/AuthContext';
+Icon;
 
 const AccountScreen = () => {
   const {signout} = useContext(AuthContext);

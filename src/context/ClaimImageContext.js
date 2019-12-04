@@ -119,37 +119,24 @@ const UploadImage = dispatch => async (
       }
       formData.append('typeImage', obj.type);
       formData.append('claimId', claimId);
-      console.log('formData: ', formData);
+
       await claimAPI
         .post('/uploadImage', formData)
         .then(res => {
-          console.log('res:', res.data);
           response = [...response, ...res.data];
           const keys = ['path', 'type'];
           response = [...response, ...res.data];
-          console.log('response after merge: ', response);
           response = response.filter(
             (s => o =>
               (k => !s.has(k) && s.add(k))(keys.map(k => o[k]).join('|')))(
               new Set(),
             ),
           );
-          console.log('response after unique: ', response);
-          // console.log('res:', res.data);
-          // console.log('response in loop: ', response);
-          // let filterPathImage = response.filter(p => p.type === obj.type);
-          // filterPathImage = [...filterPathImage, ...res.data];
-          // filterPathImage = getUnique(filterPathImage, 'path');
-          // response = response.filter(p => p.type !== obj.type);
-          // response = [...response, ...filterPathImage];
-          // console.log('response after merge: ', response);
         })
         .catch(error => {
           console.log('err:', error);
         });
     }
-    console.log('response: ', response);
-
     if (response.length > 0) {
       await claimAPI
         .put(`/ImagePath/${claimId}`, {

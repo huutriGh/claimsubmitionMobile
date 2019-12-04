@@ -1,19 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Image,
-  Picker,
-  View,
-  Linking,
-  TouchableOpacity,
-} from 'react-native';
-import {Input, Text, Button} from 'react-native-elements';
+import React, {useEffect, useState} from 'react';
 import useForm from 'react-hook-form';
+import {
+  Image,
+  Linking,
+  Picker,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {Button, Input, Text} from 'react-native-elements';
+import {SafeAreaView} from 'react-navigation';
 import * as yup from 'yup';
 import Spacer from './Spacer';
-import {Card, CardSection, Spinner} from './common';
 
-import {SafeAreaView} from 'react-navigation';
 // import {getValues} from 'jest-validate/build/condition';
 
 const AuthForm = ({
@@ -216,9 +215,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imageStyle: {
-    width: '100%',
+    width: '90%',
     height: 100,
-
+    resizeMode: 'contain',
     alignSelf: 'center',
   },
   titleStyle: {

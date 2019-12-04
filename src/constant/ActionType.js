@@ -39,4 +39,4 @@ export const DISPLAY_IMAGE_AFTER_SELECT = 'DISPLAY_IMAGE_AFTER_SELECT';
 export const CLEAN_IMAGE = 'CLEAN_IMAGE';
 
 //===============END Policy Context===============================================================================
-export const BASE_URL = 'http://10.9.9.45:8080';
+export const BASE_URL = 'http://10.9.9.59:8080';
