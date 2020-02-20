@@ -7,11 +7,10 @@ const EditClaimScreen = ({navigation}) => {
   const {state, claimSubmitionInsert, claimSubmitionRepareEdit} = useContext(
     Context,
   );
-
+  const claim = state.claimSubmitionHis.find(c => {
+    return c.id === navigation.getParam('id');
+  });
   const getFirstData = () => {
-    const claim = state.claimSubmitionHis.find(c => {
-      return c.id === navigation.getParam('id');
-    });
     claimSubmitionRepareEdit(claim, state.paymentMethods);
   };
   useEffect(() => {
@@ -27,6 +26,7 @@ const EditClaimScreen = ({navigation}) => {
   return (
     <ClaimSubmitForm
       isEdit={true}
+      initialvalue={claim}
       onSubmit={(stateEdit, isEdit) => {
         claimSubmitionInsert(stateEdit, isEdit, () => navigation.pop());
       }}

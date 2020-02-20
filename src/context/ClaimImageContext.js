@@ -58,13 +58,28 @@ const claimImageReducer = (state, action) => {
         ...state,
       };
     case DESELECT_IMAGE:
+      // console.log('images: ', state.images);
+      // console.log('Actionimagestype: ', action.payload.type);
+      let newImage = INITIAL_IMAGE;
       if (state.images.length > 0) {
         state.images
           .filter(p => p.type === action.payload.type)[0]
           .photos.splice(action.payload.index, 1);
+        newImage = state.images;
+        // console.log('newImage1: ', newImage);
+        let count = newImage.filter(p => p.type === action.payload.type)[0]
+          .photos.length;
+
+        console.log('count: ', newImage);
+        if (count === 0) {
+          newImage = newImage.filter(p => p.type !== action.payload.type);
+          // console.log('newImage2: ', count);
+        }
       }
+      // console.log('images: ', state.images);
       return {
         ...state,
+        images: newImage,
       };
     case UPLOAD_IMAGE:
       return {
@@ -159,6 +174,8 @@ const displayImageAfterSelect = dispatch => async () => {
   });
 };
 const deSelectImage = dispatch => async (index, type) => {
+  console.log('index: ', index);
+  console.log('type: ', type);
   dispatch({
     type: DESELECT_IMAGE,
     payload: {index, type},

@@ -25,7 +25,7 @@ const TakeImageScreen = ({navigation}) => {
     deSelectImage,
     UploadImage,
   } = useContext(Context);
-  console.log('state at view: ', state);
+  // console.log('state at view: ', state);
   const BUTTONSiOS = ['Sử dụng Máy ảnh...', 'Chọn từ thư viện...', 'Hủy'];
   const BUTTONSandroid = ['Sử dụng Máy ảnh...', 'Chọn từ thư viện...', 'Hủy'];
   const DESTRUCTIVE_INDEX = 3;
@@ -80,7 +80,6 @@ const TakeImageScreen = ({navigation}) => {
     if (state.images.length > 0) {
       if (state.images[0].type !== 0) {
         const imagePath = navigation.getParam('imagePath');
-        console.log('imagePath', imagePath);
         UploadImage(
           navigation.getParam('id'),
           imagePath.length > 0 ? JSON.parse(imagePath) : [],
@@ -101,7 +100,7 @@ const TakeImageScreen = ({navigation}) => {
     switch (index) {
       case 0:
         ImagePicker.openCamera({})
-          .then(image => selectImage({type: 13, photos: [image]}))
+          .then(image => selectImage({type: type, photos: [image]}))
           .catch(error => {
             console.log(error);
           });
@@ -209,7 +208,10 @@ const TakeImageScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>
             Đơn yêu cầu giải quyết quyền lợi bảo hiểm
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(1)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -220,7 +222,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Giấy chứng tử</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(2)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -231,7 +236,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Giấy báo tử</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(3)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -242,7 +250,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Giấy ra viện</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(4)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -255,7 +266,10 @@ const TakeImageScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>
             Tóm tắt bệnh án/Kết quả xét nghiệm/X-Quang
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(5)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -266,7 +280,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Giấy ra viện</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(6)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -277,7 +294,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Hóa đơn viện phí</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(7)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -290,7 +310,10 @@ const TakeImageScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>
             Bản kết luận về tai nạn, Biên bản/sơ đồ hiện trường, Kết luận pháp y
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(8)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -301,7 +324,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Tường trình về việc tử vong</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(9)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -314,7 +340,10 @@ const TakeImageScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>
             Quyết định tuyên bố tử vong của tòa án
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(10)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -325,7 +354,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Bộ hợp đồng</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(11)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -336,7 +368,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Hộ khẩu đã xóa tên</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(12)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -349,7 +384,10 @@ const TakeImageScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>
             Giấy tờ chứng minh nhân thân của người thụ hưởng
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(13)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -362,7 +400,10 @@ const TakeImageScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>
             {'Giấy khai sinh người được bảo hiểm/Người thụ hưởng(<18t)'}
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(14)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -373,7 +414,10 @@ const TakeImageScreen = ({navigation}) => {
         </View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Kết quả giám định y khoa</Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(15)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -386,7 +430,10 @@ const TakeImageScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>
             Biên bản phân chi di sản(Không có người thụ hưởng)
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(16)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -400,7 +447,10 @@ const TakeImageScreen = ({navigation}) => {
             Quyết định giám hộ hợp pháp(Người được bảo hiểm mất năng lực hành vi
             dân sự
           </Text>
-          <ScrollView style={styles.photoList} horizontal={true}>
+          <ScrollView
+            style={styles.photoList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             <TouchableOpacity onPress={() => onPressAddPhotoBtn(17)}>
               <View style={[styles.addButton, styles.photo]}>
                 <Text style={styles.addButtonText}>+</Text>
@@ -416,9 +466,20 @@ const TakeImageScreen = ({navigation}) => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
+      <View style={styles.sectionContainer}>
+        {state.images.length > 0 && state.images[0].type !== 0 ? (
+          <Button
+            buttonStyle={styles.buttonStyle}
+            title="Upload"
+            onPress={onDoUploadPress}
+            loading={state.isUploading}
+          />
+        ) : null}
+      </View>
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
+          showsVerticalScrollIndicator={false}
           style={styles.scrollView}>
           {/* <Header /> */}
           {/* <Image
@@ -429,16 +490,6 @@ const TakeImageScreen = ({navigation}) => {
           /> */}
           <View style={styles.body}>
             {renderSelectPhotoControl(state.images)}
-            <View style={styles.sectionContainer}>
-              {state.images.length > 0 && state.images[0].type !== 0 ? (
-                <Button
-                  buttonStyle={styles.buttonStyle}
-                  title="Upload"
-                  onPress={onDoUploadPress}
-                  loading={state.isUploading}
-                />
-              ) : null}
-            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -455,6 +506,7 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     marginTop: 10,
+    marginBottom: 10,
     paddingHorizontal: 24,
   },
   sectionTitle: {

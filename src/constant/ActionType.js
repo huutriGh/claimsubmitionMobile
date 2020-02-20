@@ -9,6 +9,7 @@ export const COMPONENT_CHECKED_CHANGE = 'COMPONENT_CHECKED_CHANGE';
 export const PAYMENT_CHECKED_CHANGE = 'PAYMENT_CHECKED_CHANGE';
 export const CLAIMSUBMIT_CREATE_SUCCESS = 'CLAIMSUBMIT_CREATE_SUCCESS';
 export const PAYMENT_METHOD_FETCH = 'PAYMENT_METHOD_FETCH';
+export const CHANGE_STATUS = 'CHANGE_STATUS';
 
 //===============AuthContext=======================================================================================
 
@@ -40,4 +41,4 @@ export const DISPLAY_IMAGE_AFTER_SELECT = 'DISPLAY_IMAGE_AFTER_SELECT';
 export const CLEAN_IMAGE = 'CLEAN_IMAGE';
 
 //===============END Policy Context===============================================================================
-export const BASE_URL = 'http://10.9.9.59:8080';
+export const BASE_URL = 'http://claimsub-uat.phuhunglife.com';

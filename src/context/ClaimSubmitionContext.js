@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import claimAPI from '../api/claimsubmition';
+import {Alert} from 'react-native';
 import {
+  CHANGE_STATUS,
   CLAIMSUBMIT_CREATE,
   CLAIMSUBMIT_CREATE_SUCCESS,
   CLAIMSUBMIT_FETCH_SUCCESS,
@@ -88,6 +90,7 @@ const claimReducer = (state, action) => {
         ...state,
         claimSubmition: action.payload.claimSubmition,
         components: action.payload.components,
+        isSubmitting: false,
       };
     case CLAIMSUBMIT_CREATE_SUCCESS:
       return {
@@ -98,6 +101,7 @@ const claimReducer = (state, action) => {
         paymentMethods: state.paymentMethods.map(p => {
           return {...p, checked: false};
         }),
+        isSubmitting: false,
       };
     case CLAIMSUBMIT_REPARE_EDIT:
       return {
@@ -105,6 +109,7 @@ const claimReducer = (state, action) => {
         claimSubmition: action.payload.claimSubmition,
         components: action.payload.components,
         paymentMethods: action.payload.payments,
+        isSubmitting: false,
       };
     case CLAIMSUBMIT_SAVE_SUCCESS:
       return {
@@ -115,6 +120,7 @@ const claimReducer = (state, action) => {
         paymentMethods: state.paymentMethods.map(p => {
           return {...p, checked: false};
         }),
+        isSubmitting: false,
       };
     case COMPONENT_CHECKED_CHANGE:
       return {
@@ -125,6 +131,11 @@ const claimReducer = (state, action) => {
       return {
         ...state,
         paymentMethods: action.payload,
+      };
+    case CHANGE_STATUS:
+      return {
+        ...state,
+        isSubmitting: action.payload,
       };
 
     default:
@@ -145,8 +156,8 @@ const claimSubmitionCreate = dispatch => async () => {
     });
     let claimSubmition = INITIAL_CLAIM_STATE;
     claimSubmition.poNumber = policy[0].policyNumber;
-    claimSubmition.laName = policy[0].poName;
-    claimSubmition.laIdNumber = policy[0].poIdNumber;
+    claimSubmition.laName = policy[0].lifeName;
+    claimSubmition.laIdNumber = policy[0].lifeIdNum.toString().trim();
     claimSubmition.laAddress = policy[0].benefAddress;
     dispatch({
       type: CLAIMSUBMIT_CREATE,
@@ -264,6 +275,7 @@ const claimSubmitionInsert = dispatch => async (
     if (callback) {
       callback();
     }
+    Alert.alert('Thông báo', 'Đăng ký thành công');
   }
   // navigate('ListClaim', {
   //   policyNumber: state.claimSubmition.poNumber,
@@ -275,7 +287,7 @@ const claimSubmitionFetch = dispatch => async (poNumber, idCard) => {
   if (response) {
     dispatch({
       type: CLAIMSUBMIT_FETCH_SUCCESS,
-      payload: response.data,
+      payload: response.status === 204 ? [] : response.data,
     });
   }
 };
@@ -283,6 +295,12 @@ const getPaymentMethods = dispatch => async () => {
   const response = await claimAPI.get('/paymentMethod');
   if (response) {
     dispatch({type: PAYMENT_METHOD_FETCH, payload: response.data});
+  }
+};
+const changeStatus = dispatch => async (status, message) => {
+  dispatch({type: CHANGE_STATUS, payload: status});
+  if (message) {
+    Alert.alert('Thông báo', message);
   }
 };
 export const {Provider, Context} = createDataContext(
@@ -296,11 +314,13 @@ export const {Provider, Context} = createDataContext(
     claimSubmitionInsert,
     claimSubmitionRepareEdit,
     getPaymentMethods,
+    changeStatus,
   },
   {
     claimSubmition: INITIAL_CLAIM_STATE,
     components: [],
     paymentMethods: INITIAL_PAYMENT_METHOD,
     claimSubmitionHis: [],
+    isSubmitting: false,
   },
 );

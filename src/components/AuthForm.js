@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import {Button, Input, Text} from 'react-native-elements';
-import {SafeAreaView} from 'react-navigation';
+import {SafeAreaView, ScrollView} from 'react-navigation';
 import * as yup from 'yup';
 import Spacer from './Spacer';
 
@@ -142,64 +142,79 @@ const AuthForm = ({
   }, [token]);
   return (
     <SafeAreaView forceInset={{top: 'always'}}>
-      <Spacer>
-        <Image
-          source={require('../assets/images/Logo_horizontal-Gold.png')}
-          style={styles.imageStyle}
-        />
-      </Spacer>
-      <Spacer>
-        <Text h3 style={styles.titleStyle}>
-          {headerText}
-        </Text>
-      </Spacer>
-      <View style={styles.containerStyle}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag">
         <Spacer>
-          <Input
-            ref={register({name: 'po'})}
-            label="Số hợp đồng"
-            value={policyNumber}
-            //onChangeText={setPolicyNumber}
-            onChangeText={text => {
-              setValue('po', text, true);
-              setPolicyNumber(getValues().po);
-            }}
-            autoCapitalize="none"
-            autoCorrect={false}
-            disabled={token !== null || isLoading === true}
-            errorMessage={errors.po && 'Số hợp đồng không hợp lệ'}
+          <Image
+            source={require('../assets/images/Logo_horizontal-Gold.png')}
+            style={styles.imageStyle}
           />
         </Spacer>
         <Spacer>
-          <Input
-            ref={register({name: 'id'})}
-            label="Số CMND"
-            value={idNumber}
-            autoCapitalize="none"
-            autoCorrect={false}
-            //onChangeText={setIdNumber}
-            onChangeText={text => {
-              setValue('id', text, true);
-              setIdNumber(getValues().id);
-            }}
-            disabled={token !== null || isLoading === true}
-            errorMessage={errors.id && 'Số CMND không hợp lệ'}
-          />
-          {errorMessage ? (
-            <Text style={styles.errorMessage}>{errorMessage}</Text>
-          ) : null}
+          <Text h3 style={styles.titleStyle}>
+            {headerText}
+          </Text>
         </Spacer>
-        {token ? renderPicker(listLifeIdNum) : null}
-        {renderButton()}
-        <TouchableOpacity
-          onPress={() => Linking.openURL('https://www.phuhunglife.com/')}>
+        <View style={styles.containerStyle}>
           <Spacer>
-            <Text style={styles.link}>Bạn chưa có hợp đông bảo hiểm ?</Text>
+            <Input
+              leftIcon={{
+                type: 'font-awesome',
+                name: 'file',
+                color: '#c0972e',
+              }}
+              leftIconContainerStyle={styles.iconStyle}
+              ref={register({name: 'po'})}
+              label="Số hợp đồng"
+              value={policyNumber}
+              //onChangeText={setPolicyNumber}
+              onChangeText={text => {
+                setValue('po', text, true);
+                setPolicyNumber(getValues().po);
+              }}
+              autoCapitalize="none"
+              autoCorrect={false}
+              disabled={token !== null || isLoading === true}
+              errorMessage={errors.po && 'Số hợp đồng không hợp lệ'}
+            />
           </Spacer>
-        </TouchableOpacity>
-      </View>
-
-      {/* <Navlink text="Bạn chưa có hợp đông bảo hiểm ?" routeName="Signup" /> */}
+          <Spacer>
+            <Input
+              leftIcon={{
+                type: 'font-awesome',
+                name: 'id-card',
+                color: '#c0972e',
+              }}
+              leftIconContainerStyle={styles.iconStyle}
+              ref={register({name: 'id'})}
+              label="Số CMND"
+              value={idNumber}
+              autoCapitalize="none"
+              autoCorrect={false}
+              //onChangeText={setIdNumber}
+              onChangeText={text => {
+                setValue('id', text, true);
+                setIdNumber(getValues().id);
+              }}
+              disabled={token !== null || isLoading === true}
+              errorMessage={errors.id && 'Số CMND không hợp lệ'}
+            />
+            {errorMessage ? (
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
+            ) : null}
+          </Spacer>
+          {token ? renderPicker(listLifeIdNum) : null}
+          {renderButton()}
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://www.phuhunglife.com/')}>
+            <Spacer>
+              <Text style={styles.link}>Bạn chưa có hợp đông bảo hiểm ?</Text>
+            </Spacer>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -251,6 +266,10 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'blue',
+  },
+  iconStyle: {
+    marginRight: 15,
+    marginLeft: 0,
   },
 });
 

@@ -1,22 +1,23 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import ClaimSubmitForm from '../components/ClaimSubmitForm';
 import {Context} from '../context/ClaimSubmitionContext';
 const CreateClaimScreen = ({navigation}) => {
-  const {claimSubmitionInsert, claimSubmitionCreate} = useContext(Context);
-  useEffect(() => {
-    claimSubmitionCreate();
-    const listener = navigation.addListener('didFocus', () => {
-      claimSubmitionCreate();
-    });
+  const {state, claimSubmitionInsert} = useContext(Context);
+  // useEffect(() => {
+  //   claimSubmitionCreate();
+  //   const listener = navigation.addListener('didFocus', () => {
+  //     claimSubmitionCreate();
+  //   });
 
-    return () => {
-      listener.remove();
-    };
-  }, []);
+  //   return () => {
+  //     listener.remove();
+  //   };
+  // }, []);
 
   return (
     <ClaimSubmitForm
       isEdit={false}
+      initialvalue={state.claimSubmition}
       onSubmit={(stateEdit, isEdit) => {
         claimSubmitionInsert(stateEdit, isEdit, () =>
           navigation.navigate('Index'),

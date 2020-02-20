@@ -31,16 +31,12 @@ const DatePicker = ({value, onChangeText, ...rest}) => {
     return null;
   };
   const setDate = event => {
-    console.log('date:', event);
-    console.log('date:', state.date);
-
     // console.log('ref: ', ref);
     // date: {"nativeEvent": {"timestamp": 1574235459115}, "type": "set"}
     //date: {"nativeEvent": {}, "type": "dismissed"}
     const date = date || state.date;
 
     if (event.type === 'set') {
-      console.log('event.type:', 'set');
       // Hien thi tren UI
       const valueDisplay = convertDisPlayDate(
         new Date(event.nativeEvent.timestamp),
@@ -80,13 +76,20 @@ const DatePicker = ({value, onChangeText, ...rest}) => {
     return ref.current;
   };
   const ref = usePrevious(state.date);
-  Keyboard.dismiss();
+
+  const date = new Date();
+
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
 
   return (
     <>
       {state.show ? (
         <DateTimePicker
           value={new Date()}
+          maximumDate={new Date()}
+          minimumDate={new Date(year - 1, month, day)}
           mode="date"
           display="default"
           onChange={event => setDate(event)}
@@ -95,6 +98,7 @@ const DatePicker = ({value, onChangeText, ...rest}) => {
       <Input
         {...rest}
         onFocus={() => {
+          Keyboard.dismiss();
           showPicker();
         }}
         value={convertDisPlayDate(value, true)}

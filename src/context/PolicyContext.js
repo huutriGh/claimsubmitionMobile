@@ -32,7 +32,7 @@ const getNote = dispatch => async () => {
       dispatch({
         type: LOAD_NOTE,
         payload: {
-          note: response.data,
+          note: response.status === 401 ? [] : response.data,
         },
       });
     }
@@ -50,7 +50,7 @@ const getcomponentFile = dispatch => async () => {
       dispatch({
         type: LOAD_COMPONENT_FILE,
         payload: {
-          componentFile: response.data,
+          componentFile: response.status === 401 ? [] : response.data,
         },
       });
     }
@@ -109,7 +109,7 @@ const getClaimHistory = dispatch => async poNumber => {
     dispatch({
       type: LOAD_HISTORY,
       payload: {
-        claimHistory: response.data,
+        claimHistory: response.status === 401 ? [] : response.data,
       },
     });
   } catch (err) {

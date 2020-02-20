@@ -14,7 +14,7 @@ const AttentionSCreen = ({navigation}) => {
   }
   const genderNoteDetail = (note = []) => {
     const noteHeader = removeDuplicates(note, 'noteID');
-    return noteHeader.map(n => (
+    const noteComp = noteHeader.map(n => (
       <View key={n.noteID}>
         <Text key={n.noteID} h4 h4Style={styles.noteHeaderStyle}>
           {`${n.noteOrder}. ${n.noteHeader}`}
@@ -28,6 +28,22 @@ const AttentionSCreen = ({navigation}) => {
           ))}
       </View>
     ));
+    return (
+      <Card title="MỘT SỐ LƯU Ý KHI YÊU CẦU GIẢI QUYẾT QUYỀN LỢI BẢO HIỂM">
+        <Text>Thưa quý khách,</Text>
+        <Text style={styles.noteDetailStyle}>
+          Để đảm bảo quyền lợi của Quý khách, trước khi kê khai đơn "Đơn yêu cầu
+          giải quyết quyền lợi bảo hiểm", quý khách vui lòng đọc kỹ những nội
+          dung sau đây:
+        </Text>
+        <View>{noteComp}</View>
+        <Button
+          buttonStyle={styles.buttonStyle}
+          title="Xem bảng hồ sơ chi tiết"
+          onPress={() => navigation.navigate('FileRequest')}
+        />
+      </Card>
+    );
   };
   useEffect(() => {
     getNote();
@@ -42,22 +58,7 @@ const AttentionSCreen = ({navigation}) => {
   return (
     <>
       {/* <NavigationEvents onWillFocus={getNote} /> */}
-      <ScrollView>
-        <Card title="MỘT SỐ LƯU Ý KHI YÊU CẦU GIẢI QUYẾT QUYỀN LỢI BẢO HIỂM">
-          <Text>Thưa quý khách,</Text>
-          <Text style={styles.noteDetailStyle}>
-            Để đảm bảo quyền lợi của Quý khách, trước khi kê khai đơn "Đơn yêu
-            cầu giải quyết quyền lợi bảo hiểm", quý khách vui lòng đọc kỹ những
-            nội dung sau đây:
-          </Text>
-          <View>{genderNoteDetail(state.note)}</View>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            title="Xem bảng hồ sơ chi tiết"
-            onPress={() => navigation.navigate('FileRequest')}
-          />
-        </Card>
-      </ScrollView>
+      <ScrollView>{genderNoteDetail(state.note)}</ScrollView>
     </>
   );
 };

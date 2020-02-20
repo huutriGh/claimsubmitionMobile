@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useContext, useEffect} from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, StyleSheet, Text} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {ScrollView} from 'react-navigation';
 import {Context as AuthContext} from '../context/AuthContext';
@@ -14,16 +14,23 @@ const ListClaimScreen = ({navigation}) => {
   const imgctx = useContext(ImageContext);
   const {policyNumber, idNumber} = authctx.state;
 
-  const {state, claimSubmitionFetch, getPaymentMethods} = useContext(Context);
+  const {
+    state,
+    claimSubmitionFetch,
+    getPaymentMethods,
+    claimSubmitionCreate,
+  } = useContext(Context);
 
   useEffect(() => {
     imgctx.cleanImage();
     claimSubmitionFetch(policyNumber, idNumber);
     getPaymentMethods();
+    claimSubmitionCreate();
     const listener = navigation.addListener('didFocus', () => {
       claimSubmitionFetch(policyNumber, idNumber);
       getPaymentMethods();
       imgctx.cleanImage();
+      claimSubmitionCreate();
     });
 
     return () => {
@@ -78,9 +85,16 @@ const ListClaimScreen = ({navigation}) => {
 
   return (
     <>
-      <View>
-        <ScrollView>{renderList()}</ScrollView>
-      </View>
+      {state.claimSubmitionHis.length > 0 ? (
+        <View>
+          <ScrollView>{renderList()}</ScrollView>
+        </View>
+      ) : (
+        <View style={styles.empty}>
+          <Text style={styles.textheader}>Chào mừng quý khách</Text>
+          <Text>Dịch vụ giải quyết quyền lợi bảo hiểm</Text>
+        </View>
+      )}
     </>
   );
 };
@@ -127,6 +141,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 10,
     alignItems: 'stretch',
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#e3f2fd',
+  },
+  textheader: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   itemList: {
     flex: 9,

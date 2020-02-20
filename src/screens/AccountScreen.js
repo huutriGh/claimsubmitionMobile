@@ -16,6 +16,7 @@ const AccountScreen = () => {
         <Image
           source={require('../assets/images/Logo_horizontal-Gold.png')}
           style={styles.imageStyle}
+          resizeMode="contain"
         />
       </Card>
       <Card>

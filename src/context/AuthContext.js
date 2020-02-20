@@ -116,7 +116,7 @@ const signin = dispatch => async ({policyNumber, idNumber}) => {
     dispatch({
       type: ADD_ERROR,
       payload: {
-        error: 'Đăng nhập thất bại. Vui lòng thử lại',
+        error: err.message,
         isLoading: false,
       },
     });
@@ -128,10 +128,11 @@ const continueSignin = dispatch => async (
   policyNumber,
   idNumber,
 ) => {
+  console.log('idnum: ', lifeIdNum);
   if (lifeIdNum === '') {
     dispatch({
       type: ADD_ERROR,
-      payload: 'Hãy chọn một life Id để tiếp tục.',
+      payload: 'Hãy chọn người được bảo hiểm để tiếp tục.',
     });
   } else {
     let jsonpolicyDetail = await AsyncStorage.getItem('policyDetail');
