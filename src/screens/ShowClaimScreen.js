@@ -17,7 +17,6 @@ const ShowClaimScreen = ({navigation}) => {
     return filter;
   };
   const renderImage = (images = []) => {
-    console.log('images:', images);
     return (
       <ScrollView>
         <ImageList

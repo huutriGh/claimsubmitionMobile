@@ -1,13 +1,13 @@
+import {Alert} from 'react-native';
 import claimAPI from '../api/claimsubmition';
 import {
-  SELECT_IMAGE,
+  CLEAN_IMAGE,
   DESELECT_IMAGE,
+  DISPLAY_IMAGE_AFTER_SELECT,
+  SELECT_IMAGE,
   UPLOAD_IMAGE,
   UPLOAD_IMAGE_SUCCESS,
-  DISPLAY_IMAGE_AFTER_SELECT,
-  CLEAN_IMAGE,
 } from '../constant/ActionType';
-import {Alert} from 'react-native';
 import createDataContext from './createDataContext';
 
 const INITIAL_IMAGE = [{photos: [], type: 0}];
@@ -69,8 +69,6 @@ const claimImageReducer = (state, action) => {
         // console.log('newImage1: ', newImage);
         let count = newImage.filter(p => p.type === action.payload.type)[0]
           .photos.length;
-
-        console.log('count: ', newImage);
         if (count === 0) {
           newImage = newImage.filter(p => p.type !== action.payload.type);
           // console.log('newImage2: ', count);
@@ -174,8 +172,6 @@ const displayImageAfterSelect = dispatch => async () => {
   });
 };
 const deSelectImage = dispatch => async (index, type) => {
-  console.log('index: ', index);
-  console.log('type: ', type);
   dispatch({
     type: DESELECT_IMAGE,
     payload: {index, type},

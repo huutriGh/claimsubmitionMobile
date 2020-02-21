@@ -128,7 +128,6 @@ const continueSignin = dispatch => async (
   policyNumber,
   idNumber,
 ) => {
-  console.log('idnum: ', lifeIdNum);
   if (lifeIdNum === '') {
     dispatch({
       type: ADD_ERROR,
